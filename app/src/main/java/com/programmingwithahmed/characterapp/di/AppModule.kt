@@ -1,5 +1,6 @@
 package com.programmingwithahmed.characterapp.di
 
+import com.programmingwithahmed.characterapp.data.repository.CharactersRepository
 import com.programmingwithahmed.characterapp.data.retrofit.ApiInterface
 import dagger.Module
 import dagger.Provides
@@ -13,6 +14,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    //region Retrofit
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit =
@@ -24,6 +26,12 @@ object AppModule {
     @Provides
     fun provideApiInterface(retrofit: Retrofit): ApiInterface =
         retrofit.create(ApiInterface::class.java)
+    //endregion
 
+
+    @Singleton
+    @Provides
+    fun provideCharactersRepository(apiInterface: ApiInterface): CharactersRepository =
+        CharactersRepository(apiInterface)
 
 }
