@@ -68,11 +68,13 @@ class CharactersFragment : Fragment() {
             when(resource.status){
 
                 Resource.Status.LOADING ->{
-                    binding.pb.visibility = View.VISIBLE
+                    binding.shimmerLayout.visibility = View.VISIBLE
+                    binding.shimmerLayout.startShimmer()
                 }
 
                 Resource.Status.SUCCESS ->{
-                    binding.pb.visibility = View.GONE
+                    binding.shimmerLayout.visibility = View.GONE
+                    binding.shimmerLayout.stopShimmer()
 
                     if (resource.data != null){
                         adapter.setItems(resource.data.results)
@@ -81,7 +83,8 @@ class CharactersFragment : Fragment() {
 
                 }
                 Resource.Status.ERROR ->{
-                    binding.pb.visibility = View.GONE
+                    binding.shimmerLayout.visibility = View.GONE
+                    binding.shimmerLayout.stopShimmer()
 
                     Toast.makeText(activity, resource.message, Toast.LENGTH_LONG).show()
                 }
