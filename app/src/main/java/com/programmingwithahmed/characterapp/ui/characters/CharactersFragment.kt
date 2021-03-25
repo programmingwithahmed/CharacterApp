@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.programmingwithahmed.characterapp.databinding.FragmentCharactersBinding
 import com.programmingwithahmed.characterapp.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 
 @AndroidEntryPoint
 class CharactersFragment : Fragment() {
@@ -49,7 +51,14 @@ class CharactersFragment : Fragment() {
         binding.apply {
 
             recyclerView.layoutManager = LinearLayoutManager(activity)
-            recyclerView.adapter = adapter
+
+            val alphaAdapter = AlphaInAnimationAdapter(adapter)
+            val scaleAdapter = ScaleInAnimationAdapter(alphaAdapter).apply {
+                setDuration(500)
+                setFirstOnly(false)
+            }
+
+            recyclerView.adapter = scaleAdapter
 
         }
 
